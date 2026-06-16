@@ -65,11 +65,17 @@ window.LoboStore = (function () {
       : JSON.parse(JSON.stringify(obj));
   }
 
-  /* ---- Contenido efectivo = defaults + overrides ---- */
+  /* ---- Capa "publicado" (data/content.json, en memoria) ---- */
+  let publishedCache = null;
+  function setPublished(obj) { publishedCache = (obj && typeof obj === 'object') ? obj : null; }
+  function getPublished() { return publishedCache; }
+
+  /* ---- Contenido efectivo = defaults + publicado + borrador local ---- */
   function getContent() {
     const base = clone(window.LOBO_CONFIG || {});
+    const withPublished = publishedCache ? deepMerge(base, publishedCache) : base;
     const overrides = get(CONTENT_KEY, {});
-    return deepMerge(base, overrides);
+    return deepMerge(withPublished, overrides);
   }
 
   function getOverrides() { return get(CONTENT_KEY, {}); }
@@ -92,6 +98,7 @@ window.LoboStore = (function () {
   return {
     get, set, remove, clearAll,
     getContent, getOverrides, patchContent, setOverrides, resetOverrides,
+    setPublished, getPublished,
     usageKB, deepMerge, clone,
   };
 })();
