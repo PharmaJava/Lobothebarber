@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Panel · Lobo the Barber</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%BA%3C/text%3E%3C/svg%3E" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/js/tailwind.config.js"></script>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/admin.css" />
+</head>
+
+<body class="bg-ink text-gray-200 font-body antialiased min-h-screen">
+
+  <!-- ===================== LOGIN ===================== -->
+  <div id="login-view" class="min-h-screen flex items-center justify-center px-5">
+    <div class="admin-card w-full max-w-sm text-center">
+      <svg class="w-12 h-12 text-gold mx-auto mb-4" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><path d="M32 4 L20 18 L8 14 L14 30 L6 40 L20 42 L24 56 L32 48 L40 56 L44 42 L58 40 L50 30 L56 14 L44 18 Z M24 30 a3 3 0 1 1 0 6 a3 3 0 0 1 0-6 Z M40 30 a3 3 0 1 1 0 6 a3 3 0 0 1 0-6 Z M32 40 l-4 4 h8 z"/></svg>
+      <h1 class="font-display font-700 uppercase text-white text-2xl tracking-widest">Panel de Gestión</h1>
+      <p class="text-gray-500 text-sm mt-1 mb-6">Lobo the Barber · acceso restringido</p>
+      <form id="login-form" class="space-y-3">
+        <input id="login-code" type="password" placeholder="Código de acceso" class="admin-input text-center" autocomplete="current-password" />
+        <button type="submit" class="admin-btn admin-btn-gold w-full">Entrar</button>
+        <p id="login-error" class="hidden text-sm text-red-400">Código incorrecto. Inténtalo de nuevo.</p>
+      </form>
+      <a href="index.html" class="inline-block mt-5 text-xs text-gray-500 hover:text-gold">← Volver a la web</a>
+    </div>
+  </div>
+
+  <!-- ===================== PANEL ===================== -->
+  <div id="panel-view" class="hidden max-w-5xl mx-auto px-5 sm:px-8 py-8">
+    <!-- Cabecera -->
+    <header class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-3">
+        <svg class="w-9 h-9 text-gold" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><path d="M32 4 L20 18 L8 14 L14 30 L6 40 L20 42 L24 56 L32 48 L40 56 L44 42 L58 40 L50 30 L56 14 L44 18 Z M24 30 a3 3 0 1 1 0 6 a3 3 0 0 1 0-6 Z M40 30 a3 3 0 1 1 0 6 a3 3 0 0 1 0-6 Z M32 40 l-4 4 h8 z"/></svg>
+        <div>
+          <h1 class="font-display font-700 uppercase text-white text-xl tracking-widest leading-none">Panel de Gestión</h1>
+          <p class="text-xs text-gray-500">Lobo the Barber</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="index.html" target="_blank" class="admin-btn admin-btn-ghost text-sm">Ver web ↗</a>
+        <button id="logout-btn" class="admin-btn admin-btn-ghost text-sm">Salir</button>
+      </div>
+    </header>
+
+    <!-- Aviso -->
+    <div class="admin-card mb-6 border-gold/20">
+      <p class="text-sm text-gray-300 leading-relaxed">
+        💡 Los cambios se guardan en <strong class="text-white">este navegador</strong> y se ven al instante en la web.
+        Para publicarlos a <strong class="text-white">todos los visitantes</strong>, pulsa
+        <strong class="text-gold">Exportar</strong> y entrega el archivo a tu desarrollador (o súbelo al repositorio).
+      </p>
+      <p id="usage" class="text-xs text-gray-500 mt-2"></p>
+    </div>
+
+    <!-- GALERÍA -->
+    <section class="admin-card mb-6">
+      <h2 class="font-display font-600 uppercase text-gold text-lg mb-1">Galería de trabajos</h2>
+      <p class="text-sm text-gray-400 mb-4">Arrastra fotos o súbelas. Se redimensionan automáticamente para cargar rápido.</p>
+
+      <div id="dropzone" class="dropzone mb-4">
+        <p class="font-display uppercase tracking-wide">📷 Arrastra imágenes aquí</p>
+        <p class="text-xs mt-1">o haz clic para seleccionar (JPG, PNG, WebP)</p>
+      </div>
+      <input id="gallery-input" type="file" accept="image/*" multiple class="hidden" />
+
+      <form id="gallery-url-form" class="flex gap-2 mb-5">
+        <input id="gallery-url" type="url" placeholder="...o pega la URL de una imagen" class="admin-input" />
+        <button type="submit" class="admin-btn admin-btn-ghost whitespace-nowrap">Añadir URL</button>
+      </form>
+
+      <div id="admin-gallery" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3"></div>
+    </section>
+
+    <!-- IMÁGENES PRINCIPALES -->
+    <section class="admin-card mb-6">
+      <h2 class="font-display font-600 uppercase text-gold text-lg mb-4">Imágenes principales</h2>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div>
+          <p class="admin-label">Portada (Hero)</p>
+          <img id="hero-preview" src="" alt="Vista previa hero" class="w-full aspect-video object-cover rounded-lg border border-white/10 mb-2" />
+          <input id="hero-input" type="file" accept="image/*" class="text-xs text-gray-400" />
+        </div>
+        <div>
+          <p class="admin-label">Sobre Nosotros</p>
+          <img id="about-preview" src="" alt="Vista previa sobre nosotros" class="w-full aspect-video object-cover rounded-lg border border-white/10 mb-2" />
+          <input id="about-input" type="file" accept="image/*" class="text-xs text-gray-400" />
+        </div>
+      </div>
+    </section>
+
+    <!-- DATOS DEL NEGOCIO -->
+    <section class="admin-card mb-6">
+      <h2 class="font-display font-600 uppercase text-gold text-lg mb-4">Datos del negocio</h2>
+      <div id="business-form" class="grid sm:grid-cols-2 gap-4"></div>
+      <button id="business-save" class="admin-btn admin-btn-gold mt-5">Guardar datos</button>
+    </section>
+
+    <!-- COPIA / RESTAURACIÓN -->
+    <section class="admin-card mb-6">
+      <h2 class="font-display font-600 uppercase text-gold text-lg mb-4">Copia de seguridad</h2>
+      <div class="flex flex-wrap gap-3">
+        <button id="export-btn" class="admin-btn admin-btn-gold">⬇ Exportar JSON</button>
+        <label class="admin-btn admin-btn-ghost cursor-pointer">⬆ Importar JSON
+          <input id="import-input" type="file" accept="application/json" class="hidden" />
+        </label>
+        <button id="reset-btn" class="admin-btn admin-btn-danger">↺ Restablecer todo</button>
+      </div>
+    </section>
+
+    <!-- SEGURIDAD -->
+    <section class="admin-card">
+      <h2 class="font-display font-600 uppercase text-gold text-lg mb-2">Seguridad</h2>
+      <p class="text-sm text-gray-400 mb-4">Cambia el código de acceso (se guarda solo en este navegador).</p>
+      <form id="pass-form" class="flex gap-2 max-w-sm">
+        <input id="new-pass" type="password" placeholder="Nuevo código (mín. 4)" class="admin-input" />
+        <button type="submit" class="admin-btn admin-btn-ghost whitespace-nowrap">Cambiar</button>
+      </form>
+    </section>
+  </div>
+
+  <!-- ===================== SCRIPTS ===================== -->
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

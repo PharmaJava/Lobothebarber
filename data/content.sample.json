@@ -1,0 +1,13 @@
+{
+  "_comment": "Ejemplo del formato que exporta el panel admin (assets/js/admin.js > Exportar). Pega aquí (o en assets/js/config.js) solo las claves que quieras sobrescribir. Las que no aparezcan toman su valor por defecto de config.js.",
+  "business": {
+    "whatsapp": "34600123456",
+    "phone": "+34600123456",
+    "instagram": "https://www.instagram.com/lobothebarber",
+    "facebook": "https://www.facebook.com/lobothebarber"
+  },
+  "gallery": [
+    { "src": "assets/img/corte-degradado-1.webp", "alt": "Degradado alto con barba perfilada" },
+    { "src": "assets/img/barba-clasica.webp", "alt": "Arreglo de barba clásico" }
+  ]
+}
