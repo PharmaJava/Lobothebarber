@@ -15,8 +15,38 @@ Sitio web moderno, responsive y **listo para producción** para **Lobo the Barbe
 - **Diseño oscuro premium**: negro / carbón / **dorado-ámbar**, con acentos de verde bosque y rojo lobo.
 - **Tipografía**: `Oswald` (titulares) + `Inter` (texto).
 - **Animaciones sutiles** (fade-in al scroll, hover, navbar dinámica) y respeto a `prefers-reduced-motion`.
-- **SEO local**: meta tags, Open Graph y **JSON-LD `HairSalon`** generado dinámicamente (dirección, horario, rating, catálogo de servicios).
+- **SEO local "a tope"**: ver sección dedicada más abajo.
 - **Botones flotantes** de Reservar (Booksy) y WhatsApp + mapa de Google Maps embebido.
+
+---
+
+## 🚀 SEO local, rendimiento y conversión (Sevilla)
+
+Optimizado como lo haría una agencia, con foco en **Google Maps + reservas + WhatsApp**:
+
+**SEO local**
+- `title`/`description` y `H1` orientados a *"barbería en Sevilla"*; `keywords`, `author`, `robots` (`max-image-preview:large`).
+- **Geo meta** (`geo.region ES-SE`, `geo.position`, `ICBM`) + `hreflang es-ES`/`x-default` + `canonical`.
+- **JSON-LD enriquecido** (`@graph`): `HairSalon`/`BarberShop` con dirección, geo, `hasMap`, `areaServed` (barrios de Sevilla), horario, `aggregateRating`, `makesOffer` (servicios + precios), `founder` y `ReserveAction`; además `WebSite`, `BreadcrumbList` y **`FAQPage`** (rich results de preguntas frecuentes).
+- `robots.txt`, `sitemap.xml` y `site.webmanifest`. Open Graph + Twitter Card completos.
+
+**Rendimiento**
+- `preconnect`/`dns-prefetch` y **`preload` del hero** con `fetchpriority="high"` (mejora el LCP).
+- Imágenes con `width`/`height` + `aspect-ratio` (sin saltos de layout/CLS), `loading="lazy"`, `decoding="async"` y carga elegante (blur → nítido).
+- Scripts con `defer`.
+
+**Conversión (Maps + reservas + WhatsApp)**
+- **Barra de acción inferior fija en móvil**: Llamar · WhatsApp · Reservar.
+- WhatsApp con **mensaje predefinido**, teléfono **click-to-call**, botones grandes "Cómo llegar" (Google Maps) y "Reservar" (Booksy).
+- Indicador **"Abierto ahora / Cerrado"** en vivo (calculado del horario, se refresca cada minuto).
+
+**Accesibilidad**
+- Enlace "saltar al contenido", `:focus-visible`, landmarks (`main`, `nav`, `address`), `aria-*` en menú y FAQ, etiquetas en el formulario, alt descriptivos y respeto a `prefers-reduced-motion`.
+
+**Microinteracciones premium**
+- Reveal escalonado, brillo deslizante en botones, botones magnéticos (sutil, solo ratón), subrayado animado + **scrollspy** en la navegación, banda de **cifras con count-up** y acordeón de FAQ.
+
+> Antes de publicar: actualiza el **dominio real** en `index.html` (canonical/OG), `robots.txt` y `sitemap.xml`, y sube `assets/og-image.jpg` (1200×630).
 
 ---
 

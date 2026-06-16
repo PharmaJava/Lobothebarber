@@ -15,23 +15,51 @@ window.LOBO_CONFIG = {
     phone: '+34000000000',            // TODO: número real
     whatsapp: '34000000000',          // TODO: número real (formato internacional sin +)
     bookingUrl: 'https://booksy.com/es-es/175515_lobo-the-barber_barberia_29971_sevilla',
+    whatsappMessage: 'Hola Lobo the Barber 🐺, me gustaría pedir cita. ¿Qué disponibilidad tenéis?',
     instagram: 'https://www.instagram.com/',
     facebook: 'https://www.facebook.com/',
     domain: 'https://www.lobothebarber.es/',
+    foundingYear: 2021,
     address: {
       street: 'Av. de El Greco, 10, Local 3',
       city: 'Sevilla',
+      region: 'Sevilla',
       postalCode: '41007',
       country: 'España',
       lat: 37.37,
       lng: -5.97,
     },
+    // Para Google: barrios/zonas a las que damos servicio (SEO local).
+    areaServed: ['Sevilla', 'Sevilla Este', 'Nervión', 'San Pablo', 'Santa Clara', 'El Greco'],
     hours: [
       { days: 'Lunes – Viernes', time: '9:30 – 20:30' },
       { days: 'Sábado',          time: '9:30 – 14:00' },
       { days: 'Domingo',         time: 'Cerrado', closed: true },
     ],
+    // Horario en formato máquina para el indicador "Abierto ahora" (0=domingo).
+    schedule: [
+      { days: [1, 2, 3, 4, 5], open: '09:30', close: '20:30' },
+      { days: [6],             open: '09:30', close: '14:00' },
+    ],
   },
+
+  // Métricas para la banda de cifras (animadas con count-up).
+  stats: [
+    { value: 5,    label: 'Valoración media', suffix: '.0', icon: '★' },
+    { value: 18,   label: 'Reseñas 5 estrellas', suffix: '+', icon: '💬' },
+    { value: 1500, label: 'Cortes al año', suffix: '+', icon: '✂️' },
+    { value: 100,  label: 'Clientes satisfechos', suffix: '%', icon: '🐺' },
+  ],
+
+  // Preguntas frecuentes (mejoran UX y generan rich results de FAQ en Google).
+  faqs: [
+    { q: '¿Dónde está Lobo the Barber en Sevilla?', a: 'Estamos en Av. de El Greco, 10, Local 3, 41007 Sevilla, junto a Sevilla Este. Tienes el mapa y el botón "Cómo llegar" en la sección de contacto.' },
+    { q: '¿Cómo pido cita?', a: 'Lo más rápido es reservar online en Booksy (disponible 24/7) o escribirnos por WhatsApp. También puedes pasarte por el local.' },
+    { q: '¿Cuánto cuesta un corte de pelo?', a: 'El corte de caballero cuesta 12€ y el pack corte + barba 17€. Tienes la lista completa de precios en la sección de Servicios.' },
+    { q: '¿Atendéis a niños?', a: '¡Por supuesto! El corte para niños (los lobeznos) cuesta 10€. Paciencia y mano firme garantizadas.' },
+    { q: '¿Tenéis bonos o descuentos?', a: 'Sí: ofrecemos bonos de corte y de barba para clientes fieles, y tarifa especial para jubilados (8,50€). Pregúntanos en el local o por WhatsApp.' },
+    { q: '¿Qué métodos de pago aceptáis?', a: 'Aceptamos efectivo y tarjeta. Para reservar online puedes usar Booksy.' },
+  ],
 
   // Imágenes principales (placeholders de Unsplash; sustituir por reales).
   images: {
