@@ -1,0 +1,15 @@
+# Logo / build / dependency artifacts
+node_modules/
+dist/
+.cache/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Env / secrets
+.env
+.env.*
