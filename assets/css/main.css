@@ -80,3 +80,145 @@ body { background-color: var(--ink); }
 /* Utilidad: peso 600/700 sin depender de Tailwind si fallara el CDN */
 .font-600 { font-weight: 600; }
 .font-700 { font-weight: 700; }
+
+/* ============================================================
+   Accesibilidad
+   ============================================================ */
+/* Salto al contenido para teclado/lectores de pantalla */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  background: var(--gold);
+  color: var(--ink);
+  font-weight: 600;
+  padding: .6rem 1rem;
+  border-radius: .5rem;
+  transition: top .2s ease;
+}
+.skip-link:focus { top: 1rem; }
+
+/* Foco visible coherente y elegante (solo navegación por teclado) */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Compensa la navbar fija al saltar a anclas */
+section[id] { scroll-margin-top: 6rem; }
+
+/* ============================================================
+   Microinteracciones y transiciones
+   ============================================================ */
+/* Reveal escalonado (stagger) mediante --i */
+.reveal[style*="--i"] { transition-delay: calc(var(--i) * 90ms); }
+
+/* Enlaces de navegación con subrayado animado */
+.nav-link { position: relative; }
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 100%; height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .3s ease;
+}
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-link.active::after { transform: scaleX(1); transform-origin: left; }
+.nav-link.active { color: var(--goldlt); }
+
+/* Botón premium con brillo deslizante al pasar el ratón */
+.btn-sheen { position: relative; overflow: hidden; }
+.btn-sheen::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -120%;
+  width: 60%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,.45), transparent);
+  transform: skewX(-20deg);
+  transition: left .6s ease;
+}
+.btn-sheen:hover::before { left: 140%; }
+
+/* Elevación suave reutilizable */
+.lift { transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease; }
+.lift:hover { transform: translateY(-3px); }
+
+/* Imágenes que aparecen con desenfoque->nítido (carga elegante) */
+img.fade-img { opacity: 0; filter: blur(8px); transition: opacity .7s ease, filter .7s ease; }
+img.fade-img.loaded { opacity: 1; filter: blur(0); }
+
+/* ============================================================
+   Indicador "Abierto ahora"
+   ============================================================ */
+.status-dot {
+  width: .55rem; height: .55rem; border-radius: 999px; display: inline-block;
+  background: #9ca3af;
+}
+.status-dot.open  { background: #34d399; box-shadow: 0 0 0 0 rgba(52,211,153,.6); animation: pulse-live 2s infinite; }
+.status-dot.closed{ background: var(--blood); }
+@keyframes pulse-live {
+  0%,100% { box-shadow: 0 0 0 0 rgba(52,211,153,.55); }
+  50%     { box-shadow: 0 0 0 7px rgba(52,211,153,0); }
+}
+
+/* ============================================================
+   FAQ (acordeón accesible)
+   ============================================================ */
+.faq-item { border-bottom: 1px solid rgba(255,255,255,.08); }
+.faq-q {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1.25rem 0;
+  text-align: left;
+  color: #fff;
+  background: none; border: none; cursor: pointer;
+  font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 1.05rem;
+  transition: color .2s ease;
+}
+.faq-q:hover { color: var(--goldlt); }
+.faq-icon { color: var(--gold); transition: transform .3s ease; flex: none; }
+.faq-q[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+.faq-a {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .35s ease, padding .35s ease;
+  color: #9ca3af; line-height: 1.7;
+}
+.faq-q[aria-expanded="true"] + .faq-a { max-height: 400px; padding-bottom: 1.25rem; }
+
+/* ============================================================
+   Barra de acción inferior (móvil) · Maps + Reservas + WhatsApp
+   ============================================================ */
+.mobile-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  background: rgba(10,10,10,.92);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding: .5rem .5rem calc(.5rem + env(safe-area-inset-bottom, 0));
+}
+.mobile-bar a {
+  display: flex; flex-direction: column; align-items: center; gap: .15rem;
+  padding: .5rem; font-size: .7rem; text-transform: uppercase; letter-spacing: .04em;
+  color: #e5e7eb; border-radius: .6rem; transition: background .2s ease, color .2s ease;
+}
+.mobile-bar a:active { background: rgba(200,160,79,.15); }
+.mobile-bar a.primary { color: var(--gold); }
+.mobile-bar svg { width: 1.4rem; height: 1.4rem; }
+
+/* ============================================================
+   Respeto a quien prefiere menos movimiento
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .pulse-gold, .status-dot.open { animation: none !important; }
+  .btn-sheen::before { display: none; }
+  .reveal[style*="--i"] { transition-delay: 0ms; }
+  img.fade-img { opacity: 1; filter: none; transition: none; }
+  .lift:hover { transform: none; }
+}
