@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ===================== SEO ===================== -->
+  <title>Lobo the Barber | Barbería Premium en Sevilla · Cortes y Barba</title>
+  <meta name="description" content="Lobo the Barber, barbería premium en Sevilla (Av. de El Greco, 10). Cortes precisos, degradados perfectos y barbas impecables con Ivan Lobo Soto. ★ 5.0. Reserva online." />
+  <meta name="keywords" content="barbería Sevilla, corte de pelo Sevilla, barba Sevilla, Lobo the Barber, barbero Sevilla, degradado Sevilla, afeitado Sevilla, El Greco Sevilla" />
+  <meta name="author" content="Lobo the Barber - Ivan Lobo Soto" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="canonical" href="https://www.lobothebarber.es/" />
+
+  <!-- ===================== Open Graph / Social ===================== -->
+  <meta property="og:type" content="business.business" />
+  <meta property="og:title" content="Lobo the Barber | Barbería Premium en Sevilla" />
+  <meta property="og:description" content="Cortes precisos, barbas impecables y experiencia única en el corazón de Sevilla. Tu estilo, tu manada." />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:site_name" content="Lobo the Barber" />
+  <meta property="og:image" content="assets/og-image.jpg" />
+
+  <!-- ===================== Fuentes ===================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Favicon (lobo SVG inline) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%BA%3C/text%3E%3C/svg%3E" />
+
+  <!-- ===================== Tailwind CSS ===================== -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink:    '#0a0a0a',   // negro profundo
+            coal:   '#141414',   // gris carbón
+            stone:  '#1f1f1f',   // gris oscuro (tarjetas)
+            gold:   '#c8a04f',   // dorado / ámbar
+            goldlt: '#e7c987',   // dorado claro
+            forest: '#1d3a2f',   // verde bosque sutil
+            blood:  '#8e2a2a',   // rojo lobo sutil
+          },
+          fontFamily: {
+            display: ['Oswald', 'sans-serif'],
+            body:    ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- ===================== Estilos personalizados ===================== -->
+  <style>
+    html { scroll-behavior: smooth; }
+    body { background-color: #0a0a0a; }
+
+    /* Texto en degradado dorado */
+    .text-gold-gradient {
+      background: linear-gradient(135deg, #e7c987 0%, #c8a04f 50%, #9c7a32 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Línea separadora con brillo dorado */
+    .gold-divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #c8a04f, transparent);
+    }
+
+    /* Animación fade-in al hacer scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Hero overlay */
+    .hero-overlay {
+      background:
+        linear-gradient(180deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,.75) 60%, #0a0a0a 100%),
+        radial-gradient(circle at 50% 30%, rgba(200,160,79,.18), transparent 55%);
+    }
+
+    /* Patrón sutil de fondo para secciones */
+    .texture {
+      background-image: radial-gradient(rgba(200,160,79,.06) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+
+    /* Efecto hover tarjetas */
+    .card-hover { transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease; }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      border-color: rgba(200,160,79,.5);
+      box-shadow: 0 18px 40px -20px rgba(200,160,79,.35);
+    }
+
+    /* Galería zoom */
+    .gallery-item img { transition: transform .6s ease; }
+    .gallery-item:hover img { transform: scale(1.08); }
+
+    /* Latido sutil del botón flotante */
+    @keyframes pulse-gold {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(200,160,79,.5); }
+      50%      { box-shadow: 0 0 0 14px rgba(200,160,79,0); }
+    }
+    .pulse-gold { animation: pulse-gold 2.4s infinite; }
+
+    ::selection { background: #c8a04f; color: #0a0a0a; }
+  </style>
+</head>
+
+<body class="bg-ink text-gray-200 font-body antialiased">
+
+  <!-- ============================================================= -->
+  <!-- NAVBAR                                                         -->
+  <!-- ============================================================= -->
+  <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-transparent">
+    <nav class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-20">
+      <!-- Logo -->
+      <a href="#inicio" class="flex items-center gap-3 group">
+        <svg class="w-9 h-9 text-gold transition-transform group-hover:scale-110" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
+          <path d="M32 4 L20 18 L8 14 L14 30 L6 40 L20 42 L24 56 L32 48 L40 56 L44 42 L58 40 L50 30 L56 14 L44 18 Z M24 30 a3 3 0 1 1 0 6 a3 3 0 0 1 0-6 Z M40 30 a3 3 0 1 1 0 6 a3 3 0 0 1 0-6 Z M32 40 l-4 4 h8 z"/>
+        </svg>
+        <span class="font-display font-700 text-xl tracking-widest uppercase text-white leading-none">
+          Lobo <span class="text-gold-gradient">the Barber</span>
+        </span>
+      </a>
+
+      <!-- Enlaces desktop -->
+      <ul class="hidden lg:flex items-center gap-8 font-display uppercase tracking-wide text-sm">
+        <li><a href="#nosotros"   class="hover:text-gold transition-colors">Nosotros</a></li>
+        <li><a href="#servicios"  class="hover:text-gold transition-colors">Servicios</a></li>
+        <li><a href="#galeria"    class="hover:text-gold transition-colors">Galería</a></li>
+        <li><a href="#resenas"    class="hover:text-gold transition-colors">Reseñas</a></li>
+        <li><a href="#contacto"   class="hover:text-gold transition-colors">Contacto</a></li>
+      </ul>
+
+      <!-- CTA desktop -->
+      <a href="https://booksy.com/es-es/175515_lobo-the-barber_barberia_29971_sevilla" target="_blank" rel="noopener"
+         class="hidden lg:inline-flex items-center gap-2 bg-gold text-ink font-display font-600 uppercase tracking-wide text-sm px-5 py-2.5 rounded-full hover:bg-goldlt transition-colors">
+        Reservar Cita
+      </a>
+
+      <!-- Botón móvil -->
+      <button id="menu-btn" aria-label="Abrir menú" class="lg:hidden text-white p-2">
+        <svg id="icon-open"  class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="w-7 h-7 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </nav>
+
+    <!-- Menú móvil -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-coal/95 backdrop-blur border-t border-white/10">
+      <ul class="flex flex-col px-6 py-4 font-display uppercase tracking-wide">
+        <li><a href="#nosotros"  class="block py-3 border-b border-white/5 hover:text-gold">Nosotros</a></li>
+        <li><a href="#servicios" class="block py-3 border-b border-white/5 hover:text-gold">Servicios</a></li>
+        <li><a href="#galeria"   class="block py-3 border-b border-white/5 hover:text-gold">Galería</a></li>
+        <li><a href="#resenas"   class="block py-3 border-b border-white/5 hover:text-gold">Reseñas</a></li>
+        <li><a href="#contacto"  class="block py-3 border-b border-white/5 hover:text-gold">Contacto</a></li>
+        <li class="pt-4">
+          <a href="https://booksy.com/es-es/175515_lobo-the-barber_barberia_29971_sevilla" target="_blank" rel="noopener"
+             class="block text-center bg-gold text-ink font-600 px-5 py-3 rounded-full">Reservar Cita</a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ============================================================= -->
+  <!-- HERO                                                           -->
+  <!-- ============================================================= -->
+  <section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Imagen de fondo (sustituir por foto real de la barbería) -->
+    <div class="absolute inset-0 bg-cover bg-center"
+         style="background-image:url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1920&q=80');">
+    </div>
+    <div class="absolute inset-0 hero-overlay"></div>
+
+    <div class="relative z-10 text-center px-5 max-w-4xl mx-auto pt-24">
+      <p class="font-display uppercase tracking-[0.35em] text-gold text-sm mb-5 reveal">Barbería Premium · Sevilla</p>
+
+      <h1 class="font-display font-700 uppercase text-white leading-none text-5xl sm:text-6xl md:text-7xl reveal">
+        Lobo <span class="text-gold-gradient">the Barber</span>
+      </h1>
+
+      <p class="mt-4 font-display uppercase tracking-[0.25em] text-gray-300 text-lg sm:text-xl reveal">
+        Tu Estilo, Tu Manada
+      </p>
+
+      <p class="mt-6 text-gray-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed reveal">
+        Cortes precisos, barbas impecables y una experiencia única.
+        En el corazón de Sevilla, donde cada cliente entra como invitado y sale como parte de la manada.
+      </p>
+
+      <!-- Rating -->
+      <div class="mt-6 flex items-center justify-center gap-2 reveal">
+        <span class="text-gold text-xl tracking-wider">★★★★★</span>
+        <span class="text-gray-300 text-sm">5.0 · ~18 reseñas en Booksy</span>
+      </div>
+
+      <div class="mt-9 flex flex-col sm:flex-row gap-4 justify-center reveal">
+        <a href="https://booksy.com/es-es/175515_lobo-the-barber_barberia_29971_sevilla" target="_blank" rel="noopener"
+           class="inline-flex items-center justify-center gap-2 bg-gold text-ink font-display font-600 uppercase tracking-wide px-8 py-4 rounded-full hover:bg-goldlt transition-all hover:scale-105">
+          Reservar Cita Ahora
+        </a>
+        <a href="#servicios"
+           class="inline-flex items-center justify-center gap-2 border border-white/30 text-white font-display font-600 uppercase tracking-wide px-8 py-4 rounded-full hover:border-gold hover:text-gold transition-all">
+          Ver Servicios
+        </a>
+      </div>
+    </div>
+
+    <!-- Indicador scroll -->
+    <a href="#nosotros" class="absolute bottom-8 left-1/2 -translate-x-1/2 text-gold animate-bounce" aria-label="Desplázate hacia abajo">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+    </a>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- SOBRE NOSOTROS                                                 -->
+  <!-- ============================================================= -->
+  <section id="nosotros" class="py-24 texture">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 grid md:grid-cols-2 gap-14 items-center">
+      <!-- Imagen -->
+      <div class="reveal">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=900&q=80"
+               alt="Interior de la barbería Lobo the Barber en Sevilla" loading="lazy"
+               class="rounded-2xl w-full object-cover shadow-2xl" />
+          <!-- Tarjeta flotante del barbero -->
+          <div class="absolute -bottom-6 -right-2 sm:-right-6 bg-stone border border-gold/30 rounded-xl px-6 py-4 shadow-xl">
+            <p class="font-display uppercase text-gold tracking-wide text-sm">Barbero principal</p>
+            <p class="font-display font-600 text-white text-lg">Ivan Lobo Soto</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Texto -->
+      <div class="reveal">
+        <p class="font-display uppercase tracking-[0.3em] text-gold text-sm mb-3">Sobre nosotros</p>
+        <h2 class="font-display font-700 uppercase text-white text-4xl sm:text-5xl leading-tight mb-6">
+          Más que un corte,<br><span class="text-gold-gradient">una manada</span>
+        </h2>
+        <p class="text-gray-300 leading-relaxed mb-5">
+          <strong class="text-white">Lobo the Barber</strong> nace de una idea sencilla: tratar a cada cliente como
+          parte de la manada. Bajo las manos de <strong class="text-white">Ivan Lobo Soto</strong>, cada cita es un
+          ritual de precisión, asesoramiento honesto y un ambiente donde apetece quedarse.
+        </p>
+        <p class="text-gray-300 leading-relaxed mb-8">
+          Nada de prisas ni cortes de cadena. Aquí escuchamos qué buscas, estudiamos tu rostro y tu pelo, y trabajamos
+          el detalle hasta el último contorno. Por eso nuestros clientes vuelven... y traen a la manada.
+        </p>
+
+        <!-- Valores -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-stone/60 border border-white/5 rounded-xl p-5 text-center card-hover">
+            <span class="block text-gold text-2xl mb-1">✂️</span>
+            <p class="font-display uppercase text-white text-sm tracking-wide">Profesionalidad</p>
+          </div>
+          <div class="bg-stone/60 border border-white/5 rounded-xl p-5 text-center card-hover">
+            <span class="block text-gold text-2xl mb-1">🎯</span>
+            <p class="font-display uppercase text-white text-sm tracking-wide">Asesoramiento</p>
+          </div>
+          <div class="bg-stone/60 border border-white/5 rounded-xl p-5 text-center card-hover">
+            <span class="block text-gold text-2xl mb-1">🐺</span>
+            <p class="font-display uppercase text-white text-sm tracking-wide">Ambiente acogedor</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- SERVICIOS                                                      -->
+  <!-- ============================================================= -->
+  <section id="servicios" class="py-24 bg-coal">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+        <p class="font-display uppercase tracking-[0.3em] text-gold text-sm mb-3">Carta de servicios</p>
+        <h2 class="font-display font-700 uppercase text-white text-4xl sm:text-5xl mb-4">Nuestros Servicios</h2>
+        <p class="text-gray-400">Precios orientativos. La calidad y el detalle, siempre incluidos.</p>
+      </div>
+
+      <!-- Grid de servicios -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card -->
+        <div class="bg-stone border border-white/5 rounded-2xl p-7 card-hover reveal">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="font-display font-600 uppercase text-white text-xl">Corte Caballero</h3>
+            <span class="font-display text-gold text-2xl font-600">12€</span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">Corte clásico o moderno a tijera y máquina, perfilado y acabado al detalle.</p>
+          <p class="mt-4 text-xs uppercase tracking-wide text-gray-500">≈ 30 min</p>
+        </div>
+
+        <div class="bg-stone border border-white/5 rounded-2xl p-7 card-hover reveal">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="font-display font-600 uppercase text-white text-xl">Corte + Barba</h3>
+            <span class="font-display text-gold text-2xl font-600">17€</span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">El pack completo: corte a medida y barba perfilada con toalla caliente.</p>
+          <p class="mt-4 text-xs uppercase tracking-wide text-gray-500">≈ 45 min · ⭐ Más pedido</p>
+        </div>
+
+        <div class="bg-stone border border-white/5 rounded-2xl p-7 card-hover reveal">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="font-display font-600 uppercase text-white text-xl">Arreglo de Barba</h3>
+            <span class="font-display text-gold text-2xl font-600">8€</span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">Perfilado, recorte y diseño de barba con acabado hidratante.</p>
+          <p class="mt-4 text-xs uppercase tracking-wide text-gray-500">≈ 20 min</p>
+        </div>
+
+        <div class="bg-stone border border-white/5 rounded-2xl p-7 card-hover reveal">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="font-display font-600 uppercase text-white text-xl">Corte + Lavado</h3>
+            <span class="font-display text-gold text-2xl font-600">13€</span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">Corte completo con lavado relajante y masaje capilar.</p>
+          <p class="mt-4 text-xs uppercase tracking-wide text-gray-500">≈ 35 min</p>
+        </div>
+
+        <div class="bg-stone border border-white/5 rounded-2xl p-7 card-hover reveal">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="font-display font-600 uppercase text-white text-xl">Corte Niño</h3>
+            <span class="font-display text-gold text-2xl font-600">10€</span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">Para los lobeznos. Paciencia, mano firme y un resultado del que presumir.</p>
+          <p class="mt-4 text-xs uppercase tracking-wide text-gray-500">≈ 25 min</p>
+        </div>
+
+        <div class="bg-stone border border-white/5 rounded-2xl p-7 card-hover reveal">
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="font-display font-600 uppercase text-white text-xl">Corte Jubilado</h3>
+            <span class="font-display text-gold text-2xl font-600">8,50€</span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">Tarifa especial para nuestros mayores. El respeto también se nota en el precio.</p>
+          <p class="mt-4 text-xs uppercase tracking-wide text-gray-500">≈ 30 min</p>
+        </div>
+      </div>
+
+      <!-- Bonos / Extras -->
+      <div class="mt-10 grid md:grid-cols-2 gap-6">
+        <div class="bg-gradient-to-br from-forest/40 to-stone border border-gold/20 rounded-2xl p-8 reveal">
+          <h3 class="font-display font-600 uppercase text-gold text-xl mb-2">Bonos de la Manada</h3>
+          <p class="text-gray-300 text-sm leading-relaxed mb-3">
+            Bono de cortes y bono de barba con descuento para clientes fieles. Acumula sesiones y ahorra todo el año.
+          </p>
+          <p class="text-xs uppercase tracking-wide text-gray-500">Consulta condiciones en tienda o por WhatsApp.</p>
+        </div>
+        <div class="bg-gradient-to-br from-blood/30 to-stone border border-gold/20 rounded-2xl p-8 reveal">
+          <h3 class="font-display font-600 uppercase text-gold text-xl mb-2">Color y Mechas</h3>
+          <p class="text-gray-300 text-sm leading-relaxed mb-3">
+            Color, mechas y tratamientos especiales. Atrévete con un cambio de look estudiado para ti.
+          </p>
+          <p class="text-xs uppercase tracking-wide text-gray-500">Precio según servicio · cita previa recomendada.</p>
+        </div>
+      </div>
+
+      <div class="text-center mt-12 reveal">
+        <a href="https://booksy.com/es-es/175515_lobo-the-barber_barberia_29971_sevilla" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 bg-gold text-ink font-display font-600 uppercase tracking-wide px-8 py-4 rounded-full hover:bg-goldlt transition-all hover:scale-105">
+          Reservar en Booksy
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- GALERÍA                                                        -->
+  <!-- ============================================================= -->
+  <section id="galeria" class="py-24 texture">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+        <p class="font-display uppercase tracking-[0.3em] text-gold text-sm mb-3">Nuestro trabajo</p>
+        <h2 class="font-display font-700 uppercase text-white text-4xl sm:text-5xl mb-4">Galería</h2>
+        <p class="text-gray-400">Degradados perfectos, barbas perfiladas y looks que hablan por sí solos.</p>
+      </div>
+
+      <!-- Grid galería (sustituir por fotos reales del trabajo) -->
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+        <div class="gallery-item overflow-hidden rounded-xl reveal aspect-square">
+          <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=600&q=80" alt="Degradado de pelo profesional en Lobo the Barber Sevilla" loading="lazy" class="w-full h-full object-cover" />
+        </div>
+        <div class="gallery-item overflow-hidden rounded-xl reveal aspect-square">
+          <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=600&q=80" alt="Barba perfilada en barbería de Sevilla" loading="lazy" class="w-full h-full object-cover" />
+        </div>
+        <div class="gallery-item overflow-hidden rounded-xl reveal aspect-square">
+          <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=600&q=80" alt="Corte de pelo masculino moderno Sevilla" loading="lazy" class="w-full h-full object-cover" />
+        </div>
+        <div class="gallery-item overflow-hidden rounded-xl reveal aspect-square">
+          <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80" alt="Sillón de barbería clásica Lobo the Barber" loading="lazy" class="w-full h-full object-cover" />
+        </div>
+        <div class="gallery-item overflow-hidden rounded-xl reveal aspect-square">
+          <img src="https://images.unsplash.com/photo-1517832606299-7ae9b720a186?auto=format&fit=crop&w=600&q=80" alt="Corte con tijera de precisión en Sevilla" loading="lazy" class="w-full h-full object-cover" />
+        </div>
+        <div class="gallery-item overflow-hidden rounded-xl reveal aspect-square">
+          <img src="https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?auto=format&fit=crop&w=600&q=80" alt="Afeitado clásico con navaja Sevilla" loading="lazy" class="w-full h-full object-cover" />
+        </div>
+      </div>
+
+      <p class="text-center text-gray-500 text-sm mt-8 reveal">
+        ¿Quieres ver más? Síguenos en
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="text-gold hover:underline">Instagram</a>
+        para nuestros últimos trabajos.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- RESEÑAS                                                        -->
+  <!-- ============================================================= -->
+  <section id="resenas" class="py-24 bg-coal">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+        <p class="font-display uppercase tracking-[0.3em] text-gold text-sm mb-3">Lo que dice la manada</p>
+        <h2 class="font-display font-700 uppercase text-white text-4xl sm:text-5xl mb-4">Reseñas</h2>
+        <div class="flex items-center justify-center gap-3">
+          <span class="text-gold text-2xl tracking-wider">★★★★★</span>
+          <span class="text-white font-display text-xl">5.0</span>
+          <span class="text-gray-400 text-sm">· ~18 reseñas verificadas en Booksy</span>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Reseña -->
+        <figure class="bg-stone border border-white/5 rounded-2xl p-7 card-hover reveal">
+          <div class="text-gold mb-3 tracking-wider">★★★★★</div>
+          <blockquote class="text-gray-300 leading-relaxed mb-5">"Profesional de principio a fin. Salí con el mejor corte que me han hecho en Sevilla."</blockquote>
+          <figcaption class="font-display uppercase text-white text-sm tracking-wide">Cliente verificado</figcaption>
+        </figure>
+
+        <figure class="bg-stone border border-white/5 rounded-2xl p-7 card-hover reveal">
+          <div class="text-gold mb-3 tracking-wider">★★★★★</div>
+          <blockquote class="text-gray-300 leading-relaxed mb-5">"Siempre un servicio excelente. Ivan es un crack y el trato es inmejorable."</blockquote>
+          <figcaption class="font-display uppercase text-white text-sm tracking-wide">Cliente verificado</figcaption>
+        </figure>
+
+        <figure class="bg-stone border border-white/5 rounded-2xl p-7 card-hover reveal">
+          <div class="text-gold mb-3 tracking-wider">★★★★★</div>
+          <blockquote class="text-gray-300 leading-relaxed mb-5">"Muy buen degradado y atención al detalle. Repetiré seguro."</blockquote>
+          <figcaption class="font-display uppercase text-white text-sm tracking-wide">Cliente verificado</figcaption>
+        </figure>
+
+        <figure class="bg-stone border border-white/5 rounded-2xl p-7 card-hover reveal">
+          <div class="text-gold mb-3 tracking-wider">★★★★★</div>
+          <blockquote class="text-gray-300 leading-relaxed mb-5">"Genial con los niños, mi hijo salió encantado y guapísimo. ¡Mil gracias!"</blockquote>
+          <figcaption class="font-display uppercase text-white text-sm tracking-wide">Cliente verificado</figcaption>
+        </figure>
+
+        <figure class="bg-stone border border-white/5 rounded-2xl p-7 card-hover reveal">
+          <div class="text-gold mb-3 tracking-wider">★★★★★</div>
+          <blockquote class="text-gray-300 leading-relaxed mb-5">"Ambiente top y barba perfecta. Se nota que le pone cariño a cada cliente."</blockquote>
+          <figcaption class="font-display uppercase text-white text-sm tracking-wide">Cliente verificado</figcaption>
+        </figure>
+
+        <figure class="bg-stone border border-white/5 rounded-2xl p-7 card-hover reveal">
+          <div class="text-gold mb-3 tracking-wider">★★★★★</div>
+          <blockquote class="text-gray-300 leading-relaxed mb-5">"Puntual, limpio y muy buen gusto. La mejor barbería del barrio sin duda."</blockquote>
+          <figcaption class="font-display uppercase text-white text-sm tracking-wide">Cliente verificado</figcaption>
+        </figure>
+      </div>
+
+      <div class="text-center mt-12 reveal">
+        <a href="https://booksy.com/es-es/175515_lobo-the-barber_barberia_29971_sevilla" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 border border-gold text-gold font-display font-600 uppercase tracking-wide px-8 py-4 rounded-full hover:bg-gold hover:text-ink transition-all">
+          Ver todas las reseñas en Booksy
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- UBICACIÓN Y CONTACTO                                           -->
+  <!-- ============================================================= -->
+  <section id="contacto" class="py-24 texture">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+        <p class="font-display uppercase tracking-[0.3em] text-gold text-sm mb-3">Te esperamos</p>
+        <h2 class="font-display font-700 uppercase text-white text-4xl sm:text-5xl mb-4">Ubicación y Contacto</h2>
+        <p class="text-gray-400">En pleno Sevilla, fácil de encontrar. Reserva tu cita o pásate a conocernos.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-10">
+        <!-- Info + horario -->
+        <div class="reveal space-y-8">
+          <!-- Datos -->
+          <div class="space-y-5">
+            <div class="flex items-start gap-4">
+              <span class="text-gold text-xl mt-1">📍</span>
+              <div>
+                <p class="font-display uppercase text-white tracking-wide">Dirección</p>
+                <p class="text-gray-400">Av. de El Greco, 10, Local 3, 41007 Sevilla, España</p>
+                <a href="https://maps.google.com/?q=Av.+de+El+Greco,+10,+Local+3,+41007+Sevilla" target="_blank" rel="noopener" class="text-gold text-sm hover:underline">Cómo llegar →</a>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <span class="text-gold text-xl mt-1">💬</span>
+              <div>
+                <p class="font-display uppercase text-white tracking-wide">WhatsApp</p>
+                <a href="https://wa.me/34000000000" target="_blank" rel="noopener" class="text-gray-400 hover:text-gold">Escríbenos para dudas y citas rápidas</a>
+                <p class="text-xs text-gray-600">(Sustituir por el número real)</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <span class="text-gold text-xl mt-1">📅</span>
+              <div>
+                <p class="font-display uppercase text-white tracking-wide">Reservas online</p>
+                <a href="https://booksy.com/es-es/175515_lobo-the-barber_barberia_29971_sevilla" target="_blank" rel="noopener" class="text-gray-400 hover:text-gold">Reserva 24/7 en Booksy</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Horario -->
+          <div class="bg-stone border border-white/5 rounded-2xl p-6">
+            <p class="font-display uppercase text-gold tracking-wide mb-4">Horario</p>
+            <ul class="space-y-2 text-sm">
+              <li class="flex justify-between border-b border-white/5 pb-2"><span class="text-gray-300">Lunes – Viernes</span><span class="text-white">9:30 – 20:30</span></li>
+              <li class="flex justify-between border-b border-white/5 pb-2"><span class="text-gray-300">Sábado</span><span class="text-white">9:30 – 14:00</span></li>
+              <li class="flex justify-between"><span class="text-gray-300">Domingo</span><span class="text-blood font-600">Cerrado</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Mapa + Formulario -->
+        <div class="reveal space-y-6">
+          <div class="rounded-2xl overflow-hidden border border-white/10 h-64">
+            <iframe
+              title="Ubicación de Lobo the Barber en Sevilla"
+              src="https://www.google.com/maps?q=Av.%20de%20El%20Greco%2010%2C%2041007%20Sevilla&output=embed"
+              width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+
+          <!-- Formulario (demo, conectar a backend/Formspree) -->
+          <form class="bg-stone border border-white/5 rounded-2xl p-6 space-y-4" onsubmit="return handleContact(event)">
+            <p class="font-display uppercase text-gold tracking-wide">Envíanos un mensaje</p>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <input type="text" required placeholder="Nombre" class="bg-coal border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-500 focus:border-gold focus:outline-none" />
+              <input type="tel" placeholder="Teléfono" class="bg-coal border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-500 focus:border-gold focus:outline-none" />
+            </div>
+            <input type="email" required placeholder="Email" class="w-full bg-coal border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-500 focus:border-gold focus:outline-none" />
+            <textarea rows="3" placeholder="¿En qué podemos ayudarte?" class="w-full bg-coal border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-500 focus:border-gold focus:outline-none"></textarea>
+            <button type="submit" class="w-full bg-gold text-ink font-display font-600 uppercase tracking-wide py-3 rounded-lg hover:bg-goldlt transition-colors">Enviar mensaje</button>
+            <p id="form-msg" class="text-sm text-gold hidden text-center">¡Gracias! Te responderemos lo antes posible. 🐺</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- FOOTER                                                         -->
+  <!-- ============================================================= -->
+  <footer class="bg-ink border-t border-white/10 pt-14 pb-8">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="grid md:grid-cols-3 gap-10 mb-10">
+        <!-- Marca -->
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <svg class="w-8 h-8 text-gold" viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
+              <path d="M32 4 L20 18 L8 14 L14 30 L6 40 L20 42 L24 56 L32 48 L40 56 L44 42 L58 40 L50 30 L56 14 L44 18 Z M24 30 a3 3 0 1 1 0 6 a3 3 0 0 1 0-6 Z M40 30 a3 3 0 1 1 0 6 a3 3 0 0 1 0-6 Z M32 40 l-4 4 h8 z"/>
+            </svg>
+            <span class="font-display font-700 text-lg tracking-widest uppercase text-white">Lobo the Barber</span>
+          </div>
+          <p class="text-gray-500 text-sm leading-relaxed">Barbería premium en Sevilla. Tu estilo, tu manada. Cortes precisos y barbas impecables con Ivan Lobo Soto.</p>
+        </div>
+
+        <!-- Enlaces -->
+        <div>
+          <p class="font-display uppercase text-white tracking-wide mb-4">Navegación</p>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li><a href="#nosotros" class="hover:text-gold">Nosotros</a></li>
+            <li><a href="#servicios" class="hover:text-gold">Servicios</a></li>
+            <li><a href="#galeria" class="hover:text-gold">Galería</a></li>
+            <li><a href="#resenas" class="hover:text-gold">Reseñas</a></li>
+            <li><a href="#contacto" class="hover:text-gold">Contacto</a></li>
+          </ul>
+        </div>
+
+        <!-- Redes / contacto -->
+        <div>
+          <p class="font-display uppercase text-white tracking-wide mb-4">Síguenos</p>
+          <div class="flex gap-4 mb-5">
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" class="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:border-gold hover:text-gold transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.1.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.1-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.1-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.1 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.3.8-.4.4-.6.8-.8 1.3-.2.4-.3 1-.4 2.1-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.3.4.4.8.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.3-.8.4-.4.6-.8.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.3-.4-.4-.8-.6-1.3-.8-.4-.2-1-.3-2.1-.4-1.2-.1-1.6-.1-4.7-.1Zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 8.1a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Zm6.2-8.3a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0Z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" class="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:border-gold hover:text-gold transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12Z"/></svg>
+            </a>
+            <a href="https://booksy.com/es-es/175515_lobo-the-barber_barberia_29971_sevilla" target="_blank" rel="noopener" aria-label="Booksy" class="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:border-gold hover:text-gold transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M7 3h10a2 2 0 0 1 2 2v16l-7-3-7 3V5a2 2 0 0 1 2-2Z"/></svg>
+            </a>
+          </div>
+          <p class="text-gray-500 text-sm">Av. de El Greco, 10, Local 3<br>41007 Sevilla</p>
+        </div>
+      </div>
+
+      <div class="gold-divider mb-6"></div>
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
+        <p>© <span id="year"></span> Lobo the Barber · Todos los derechos reservados.</p>
+        <p>Hecho con 🐺 en Sevilla.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================= -->
+  <!-- BOTONES FLOTANTES                                              -->
+  <!-- ============================================================= -->
+  <a href="https://wa.me/34000000000" target="_blank" rel="noopener" aria-label="WhatsApp"
+     class="fixed bottom-24 right-5 z-40 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.06 24l1.68-6.13A11.86 11.86 0 0 1 .16 11.9C.16 5.33 5.5 0 12.06 0a11.8 11.8 0 0 1 8.41 3.49 11.8 11.8 0 0 1 3.48 8.42c0 6.56-5.34 11.9-11.9 11.9a11.9 11.9 0 0 1-5.7-1.45L.06 24Zm6.6-3.8c1.68.99 3.28 1.58 5.4 1.58 5.45 0 9.9-4.43 9.9-9.88a9.81 9.81 0 0 0-2.9-7A9.82 9.82 0 0 0 12.07 2C6.61 2 2.17 6.44 2.17 11.9c0 2.22.65 3.88 1.74 5.62l-.99 3.62 3.74-.94Zm11.39-5.46c-.07-.12-.27-.2-.56-.34-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.66.15-.2.3-.76.96-.94 1.16-.17.2-.34.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.14.3-.34.45-.51.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.66-1.6-.91-2.19-.24-.57-.48-.5-.66-.5l-.56-.01c-.2 0-.51.07-.78.37-.27.3-1.02 1-1.02 2.42 0 1.43 1.04 2.81 1.19 3 .15.2 2.05 3.13 4.97 4.39.69.3 1.23.48 1.65.61.69.22 1.32.19 1.82.12.55-.08 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41Z"/></svg>
+  </a>
+
+  <a href="https://booksy.com/es-es/175515_lobo-the-barber_barberia_29971_sevilla" target="_blank" rel="noopener"
+     class="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 bg-gold text-ink font-display font-600 uppercase tracking-wide text-sm px-5 py-3 rounded-full shadow-lg pulse-gold hover:bg-goldlt transition-colors">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M8 7V3m8 4V3M3 11h18M5 21h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2Z"/></svg>
+    Reservar
+  </a>
+
+  <!-- ============================================================= -->
+  <!-- JSON-LD · SEO LOCAL (Schema.org)                               -->
+  <!-- ============================================================= -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HairSalon",
+    "name": "Lobo the Barber",
+    "image": "https://www.lobothebarber.es/assets/og-image.jpg",
+    "description": "Barbería premium en Sevilla. Cortes precisos, barbas impecables y experiencia única con Ivan Lobo Soto.",
+    "@id": "https://www.lobothebarber.es/",
+    "url": "https://www.lobothebarber.es/",
+    "telephone": "+34000000000",
+    "priceRange": "€€",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. de El Greco, 10, Local 3",
+      "addressLocality": "Sevilla",
+      "postalCode": "41007",
+      "addressCountry": "ES"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 37.3700, "longitude": -5.9700 },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:30", "closes": "20:30" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:30", "closes": "14:00" }
+    ],
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "18" },
+    "sameAs": [ "https://booksy.com/es-es/175515_lobo-the-barber_barberia_29971_sevilla" ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Servicios de barbería",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Corte caballero" }, "price": "12", "priceCurrency": "EUR" },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Corte y barba" }, "price": "17", "priceCurrency": "EUR" },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Arreglo de barba" }, "price": "8", "priceCurrency": "EUR" }
+      ]
+    }
+  }
+  </script>
+
+  <!-- ============================================================= -->
+  <!-- JAVASCRIPT                                                     -->
+  <!-- ============================================================= -->
+  <script>
+    // Año dinámico
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Navbar con fondo al hacer scroll
+    const navbar = document.getElementById('navbar');
+    const onScroll = () => {
+      if (window.scrollY > 40) {
+        navbar.classList.add('bg-ink/90', 'backdrop-blur', 'shadow-lg', 'border-b', 'border-white/10');
+      } else {
+        navbar.classList.remove('bg-ink/90', 'backdrop-blur', 'shadow-lg', 'border-b', 'border-white/10');
+      }
+    };
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+
+    // Menú móvil
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      iconOpen.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+    });
+    // Cerrar al hacer clic en un enlace
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    }));
+
+    // Animaciones reveal al hacer scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Formulario de contacto (demo). Conectar a Formspree/EmailJS/backend real.
+    function handleContact(e) {
+      e.preventDefault();
+      const msg = document.getElementById('form-msg');
+      msg.classList.remove('hidden');
+      e.target.reset();
+      return false;
+    }
+  </script>
+</body>
+</html>
