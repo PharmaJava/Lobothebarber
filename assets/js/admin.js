@@ -60,9 +60,10 @@
   const isLogged = () => sessionStorage.getItem(SESSION_KEY) === '1';
   function logout() { sessionStorage.removeItem(SESSION_KEY); location.reload(); }
 
-  function showPanel() {
+  async function showPanel() {
     $('#login-view').classList.add('hidden');
     $('#panel-view').classList.remove('hidden');
+    await loadPublished();
     renderAll();
   }
 
@@ -215,13 +216,121 @@
 
   function renderUsage() {
     const el = $('#usage');
-    if (el) el.textContent = `Almacenamiento usado: ${LoboStore.usageKB()} KB (límite del navegador ≈ 5 MB)`;
+    if (el) el.textContent = `Almacenamiento local usado: ${LoboStore.usageKB()} KB (límite del navegador ≈ 5 MB)`;
+  }
+
+  /* ---------- Carga del contenido ya publicado ---------- */
+  async function loadPublished() {
+    try {
+      const res = await fetch('data/content.json', { cache: 'no-store' });
+      if (res.ok) LoboStore.setPublished(await res.json());
+    } catch (e) { /* sin archivo o sin servidor */ }
+  }
+
+  /* ---------- Conexión con GitHub ---------- */
+  function renderGitHub() {
+    const c = LoboGitHub.cfg();
+    ['owner', 'repo', 'branch', 'token'].forEach((f) => {
+      const inp = $('#gh-' + f);
+      if (inp && c[f]) inp.value = c[f];
+    });
+    setGhStatus(LoboGitHub.isConfigured() ? 'Conexión guardada. Pulsa "Probar" para verificar.' : 'Sin configurar.', LoboGitHub.isConfigured());
+  }
+
+  function setGhStatus(msg, ok) {
+    const el = $('#gh-status');
+    if (!el) return;
+    el.textContent = msg;
+    el.className = 'text-sm mt-2 ' + (ok === true ? 'text-green-400' : ok === false ? 'text-gray-400' : 'text-yellow-400');
+  }
+
+  function saveGitHub() {
+    LoboGitHub.setCfg({
+      owner: $('#gh-owner').value.trim(),
+      repo: $('#gh-repo').value.trim(),
+      branch: ($('#gh-branch').value.trim() || 'main'),
+      token: $('#gh-token').value.trim(),
+    });
+    toast('Conexión guardada ✓');
+    renderGitHub();
+  }
+
+  async function testGitHub() {
+    saveGitHub();
+    setGhStatus('Comprobando…', null);
+    try {
+      const repo = await LoboGitHub.test();
+      setGhStatus(`✓ Conectado a ${repo.full_name} (rama por defecto: ${repo.default_branch}).`, true);
+    } catch (e) {
+      setGhStatus('✗ ' + e.message + ' — revisa owner/repo/token y permisos (Contents: write).', false);
+    }
+  }
+
+  /* ---------- Publicar en GitHub ---------- */
+  function setPublishing(on) {
+    const btn = $('#publish-btn');
+    if (!btn) return;
+    btn.disabled = on;
+    btn.textContent = on ? '⏳ Publicando…' : '🚀 Publicar en la web';
+    btn.classList.toggle('opacity-60', on);
+  }
+
+  async function publish() {
+    if (!LoboGitHub.isConfigured()) { toast('Configura primero la conexión con GitHub'); return; }
+    if (!confirm('¿Publicar los cambios en la web? Se subirán las imágenes nuevas y se actualizará el contenido para todos los visitantes.')) return;
+
+    setPublishing(true);
+    try {
+      // Trabajamos sobre los overrides (borrador) para no perder los defaults.
+      const data = LoboStore.clone(LoboStore.getOverrides());
+      const stamp = Date.now();
+
+      // Subir imágenes principales que estén como data-URL.
+      if (data.images) {
+        for (const key of ['hero', 'about']) {
+          const v = data.images[key];
+          if (typeof v === 'string' && v.startsWith('data:')) {
+            const path = `assets/img/${key}-${stamp}.jpg`;
+            await LoboGitHub.uploadImage(path, v, `admin: imagen ${key}`);
+            data.images[key] = path;
+          }
+        }
+      }
+
+      // Subir imágenes de galería que estén como data-URL.
+      if (Array.isArray(data.gallery)) {
+        for (let i = 0; i < data.gallery.length; i++) {
+          const g = data.gallery[i];
+          if (g && typeof g.src === 'string' && g.src.startsWith('data:')) {
+            const path = `assets/img/gallery/${stamp}-${i}.jpg`;
+            await LoboGitHub.uploadImage(path, g.src, 'admin: imagen de galería');
+            g.src = path;
+          }
+        }
+      }
+
+      // Escribir el contenido publicado.
+      await LoboGitHub.putText('data/content.json', JSON.stringify(data, null, 2), 'admin: actualizar contenido del sitio');
+
+      // Sincronizar estado local con lo publicado (libera espacio de data-URLs).
+      LoboStore.setOverrides(data);
+      LoboStore.setPublished(data);
+      renderAll();
+      toast('✅ Publicado. La web se actualizará en unos segundos.');
+    } catch (e) {
+      console.error(e);
+      alert('Error al publicar:\n' + e.message);
+      setGhStatus('✗ ' + e.message, false);
+    } finally {
+      setPublishing(false);
+    }
   }
 
   function renderAll() {
     renderGallery();
     renderMainImages();
     renderBusinessForm();
+    renderGitHub();
     renderUsage();
   }
 
@@ -274,5 +383,12 @@
 
     // Cambio de código
     $('#pass-form').addEventListener('submit', (e) => { e.preventDefault(); changePass($('#new-pass').value); $('#new-pass').value = ''; });
+
+    // Conexión con GitHub
+    $('#gh-save').addEventListener('click', saveGitHub);
+    $('#gh-test').addEventListener('click', testGitHub);
+
+    // Publicar
+    $('#publish-btn').addEventListener('click', publish);
   });
 })();

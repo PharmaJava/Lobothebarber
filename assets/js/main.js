@@ -8,8 +8,23 @@
 (function () {
   'use strict';
 
-  const content = (window.LoboStore && LoboStore.getContent())
+  // Se asigna tras cargar el contenido publicado (ver bootstrap).
+  let content = (window.LoboStore && LoboStore.getContent())
     || window.LOBO_CONFIG || {};
+
+  /* ---------- Carga del contenido publicado (data/content.json) ---------- */
+  async function loadPublished() {
+    try {
+      const res = await fetch('data/content.json', { cache: 'no-store' });
+      if (res.ok) {
+        const json = await res.json();
+        if (window.LoboStore) LoboStore.setPublished(json);
+      }
+    } catch (e) {
+      // Sin conexión o sin archivo: se usan los valores por defecto.
+    }
+    content = (window.LoboStore && LoboStore.getContent()) || content;
+  }
 
   /* ---------- Utilidades ---------- */
   const $  = (sel, root = document) => root.querySelector(sel);
@@ -212,7 +227,8 @@
   }
 
   /* ---------- Arranque ---------- */
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', async () => {
+    await loadPublished();
     applyBindings();
     renderServices();
     renderPackages();

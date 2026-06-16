@@ -46,6 +46,7 @@
         </div>
       </div>
       <div class="flex items-center gap-3">
+        <button id="publish-btn" class="admin-btn admin-btn-gold text-sm">🚀 Publicar en la web</button>
         <a href="index.html" target="_blank" class="admin-btn admin-btn-ghost text-sm">Ver web ↗</a>
         <button id="logout-btn" class="admin-btn admin-btn-ghost text-sm">Salir</button>
       </div>
@@ -54,9 +55,10 @@
     <!-- Aviso -->
     <div class="admin-card mb-6 border-gold/20">
       <p class="text-sm text-gray-300 leading-relaxed">
-        💡 Los cambios se guardan en <strong class="text-white">este navegador</strong> y se ven al instante en la web.
-        Para publicarlos a <strong class="text-white">todos los visitantes</strong>, pulsa
-        <strong class="text-gold">Exportar</strong> y entrega el archivo a tu desarrollador (o súbelo al repositorio).
+        💡 Edita lo que quieras (se previsualiza al instante en este navegador). Cuando termines, pulsa
+        <strong class="text-gold">🚀 Publicar en la web</strong> y los cambios se suben directamente a tu
+        repositorio: quedarán online para <strong class="text-white">todos los visitantes</strong> en unos segundos.
+        Requiere configurar una vez la <strong class="text-white">Conexión con GitHub</strong> (más abajo).
       </p>
       <p id="usage" class="text-xs text-gray-500 mt-2"></p>
     </div>
@@ -104,6 +106,38 @@
       <button id="business-save" class="admin-btn admin-btn-gold mt-5">Guardar datos</button>
     </section>
 
+    <!-- CONEXIÓN CON GITHUB -->
+    <section class="admin-card mb-6">
+      <h2 class="font-display font-600 uppercase text-gold text-lg mb-1">Conexión con GitHub</h2>
+      <p class="text-sm text-gray-400 mb-4">Necesario para publicar directamente. Se configura una sola vez.</p>
+
+      <div class="grid sm:grid-cols-3 gap-4 mb-4">
+        <div><label class="admin-label" for="gh-owner">Usuario/organización</label><input id="gh-owner" class="admin-input" value="PharmaJava" placeholder="PharmaJava" /></div>
+        <div><label class="admin-label" for="gh-repo">Repositorio</label><input id="gh-repo" class="admin-input" value="Lobothebarber" placeholder="Lobothebarber" /></div>
+        <div><label class="admin-label" for="gh-branch">Rama</label><input id="gh-branch" class="admin-input" value="main" placeholder="main" /></div>
+      </div>
+      <div class="mb-4">
+        <label class="admin-label" for="gh-token">Token de acceso (fine-grained)</label>
+        <input id="gh-token" type="password" class="admin-input" placeholder="github_pat_..." autocomplete="off" />
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <button id="gh-save" class="admin-btn admin-btn-ghost">Guardar conexión</button>
+        <button id="gh-test" class="admin-btn admin-btn-ghost">Probar conexión</button>
+      </div>
+      <p id="gh-status" class="text-sm mt-2 text-gray-400"></p>
+
+      <details class="mt-4 text-sm text-gray-400">
+        <summary class="cursor-pointer text-gold">¿Cómo creo el token? (1 minuto)</summary>
+        <ol class="list-decimal list-inside mt-2 space-y-1">
+          <li>Entra en <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener" class="text-gold hover:underline">GitHub → Tokens (fine-grained)</a>.</li>
+          <li>En <em>Repository access</em>, elige <strong>Only select repositories</strong> → este repositorio.</li>
+          <li>En <em>Permissions → Repository permissions</em>, pon <strong>Contents: Read and write</strong>.</li>
+          <li>Genera el token, cópialo y pégalo arriba. Guárdalo en sitio seguro.</li>
+        </ol>
+        <p class="mt-2 text-xs text-gray-500">⚠️ El token se guarda en este navegador. Úsalo solo en equipos de confianza y revócalo si se filtra.</p>
+      </details>
+    </section>
+
     <!-- COPIA / RESTAURACIÓN -->
     <section class="admin-card mb-6">
       <h2 class="font-display font-600 uppercase text-gold text-lg mb-4">Copia de seguridad</h2>
@@ -130,6 +164,7 @@
   <!-- ===================== SCRIPTS ===================== -->
   <script src="assets/js/config.js"></script>
   <script src="assets/js/store.js"></script>
+  <script src="assets/js/github.js"></script>
   <script src="assets/js/admin.js"></script>
 </body>
 </html>
