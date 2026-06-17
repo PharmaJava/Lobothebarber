@@ -417,18 +417,6 @@
     els.forEach((el) => io.observe(el));
   }
 
-  /* ---------- Formulario de contacto (demo) ---------- */
-  function initContactForm() {
-    const form = $('#contact-form');
-    if (!form) return;
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const msg = $('#form-msg');
-      if (msg) msg.classList.remove('hidden');
-      form.reset();
-    });
-  }
-
   /* ---------- Arranque ---------- */
   document.addEventListener('DOMContentLoaded', async () => {
     await loadPublished();
@@ -443,7 +431,6 @@
     renderOpenStatus();
     injectSchema();
     initUI();
-    initContactForm();
     observeReveal();
     initCounters();
     initScrollSpy();
